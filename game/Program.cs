@@ -1,9 +1,17 @@
-﻿namespace game;
+﻿using System.Security;
 
-class Program
+namespace game
 {
-    static void Main(string[] args)
+
+    class Program
     {
-        Console.WriteLine("Hello, World!");
+        static void Main(string[] args)
+        {
+            const double mineFillFactor = 0.1;
+            const int mineCount = 2;
+            var mines = new Mines(mineFillFactor, mineCount);
+            var player = new Player('a', mines);
+
+        }
     }
 }

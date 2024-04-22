@@ -1,4 +1,5 @@
 using System;
+using System.Data;
 
 namespace game
 {
@@ -36,6 +37,10 @@ namespace game
             if (j < 0) { return false; }
             if (j > 7) { return false; }
             return true;
+        }
+        public Cell Up() {
+            if (i + 1 > 7) { return this;}
+            return new Cell(i+1,j);
         }
     }
 }

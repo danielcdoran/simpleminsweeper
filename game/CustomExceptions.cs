@@ -22,14 +22,20 @@ namespace game
 
         }
     }
-        public class InvalidMineCount : Exception
+    public class InvalidMineCount : Exception
     {
-
         public InvalidMineCount(int mineCount)
-            : base(String.Format("Invalid mine count - must be > 0 and < 64. It is {}",mineCount))
+            : base(String.Format("Invalid mine count - must be > 0 and < 64. It is {}", mineCount))
         {
-
         }
     }
 
-   }
+        public class InvalidColumn : Exception
+    {
+        public InvalidColumn(char column)
+            : base(String.Format("Invalid column - {}", column))
+        {
+        }
+    }
+
+}
