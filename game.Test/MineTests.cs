@@ -5,14 +5,14 @@ namespace game.Test
 
     public class MineTests
     {
-
+// This could be a "flakey" tet because it uses a random function;
         [Fact]
         public void GivenMinesFillFactor_thenProduceBoardWithMines()
         {
             Mines initial = new Mines(0.9, 2);
             string output = initial.toString();
             int size = output.Length;
-            Assert.True(initial.NumberMines > 2);
+            Assert.True(initial.minesInBoard > 2);
         }
 
         [Fact]
@@ -21,7 +21,7 @@ namespace game.Test
             int expectedMineCount = 3;
             Cell[] mineCells = new Cell[3] { new Cell(0, 0), new Cell(1, 2), new Cell(2, 3) };
             Mines initial = new Mines(mineCells, 2);
-            Assert.Equal(expectedMineCount, initial.NumberMines);
+            Assert.Equal(expectedMineCount, initial.minesInBoard);
             // Assert.True(initial.toStringMines().Length > 22);
         }
 
@@ -41,7 +41,7 @@ namespace game.Test
             const double mineFillFactor = 0.1;
             const int mineCount = 2;
             var mines = new Mines(mineFillFactor, mineCount);
-            var expected = mines.getCell(0, 7);
+            var expected = mines.getCell(7,0);
             var player = new Player('h', mines);
             Assert.Equal(expected, player.getCurrentPosition());
         }
@@ -61,14 +61,14 @@ namespace game.Test
 
 
         [Fact]
-        public void given_UpCommand_then_MovesIncreaseLivesDecrease()
+        public void given_UpCommandHitsMine_then_MovesIncreaseLivesDecrease()
         {
             const int mineCount = 2;
             Cell[] mineCells = new Cell[3] { new Cell(0, 0), new Cell(1, 2), new Cell(2, 3) };
             var mines = new Mines(mineCells, mineCount);
             var player = new Player(mines, new Cell(1, 1), 1, 2, false);
             var movedPlayer = player.Up();
-            var expected = new Player(mines, new Cell(1, 2), 2, 2, false);
+            var expected = new Player(mines, new Cell(1, 2), 2, 1, false);
             // Assert.Equal(expected, player.getCurrentPosition());
             Assert.Equal(expected, movedPlayer);
             // Assert.Equal(expected, player.getCurrentPosition().j);

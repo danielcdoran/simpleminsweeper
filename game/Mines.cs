@@ -44,7 +44,7 @@ namespace game
         // And remember  - do NOT delete existing mines
         void makeBoardWithMines()
         {
-            bool enoughMines;
+            bool enoughMines = false;
             do
             {
                 Console.WriteLine("makeBoardWithMines - do");
@@ -64,22 +64,13 @@ namespace game
                                 setCellAsMine(new Cell(i, j));
                             }
                         }
-                        // if (isMineCell(new Cell(i, j)))
-                        // {
-                        //     if (result < _mineFactor)
-                        //     { 
-                        //         setCellAsMine(new Cell(i, j));
-                        //         _minesInBoard++;
-                        //     }
-                        // }
                     }
                 }
                 Console.WriteLine("_minesInBoard " + _minesInBoard + " minecount " + _mineCount);
                 enoughMines = (_minesInBoard >= _mineCount);
-            }
-
-            while (!enoughMines);
+            } while (!enoughMines);
         }
+
         public Mines(Cell[] cellsSetAsMine, int mineCount)
         {
             initialise();
