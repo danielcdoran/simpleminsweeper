@@ -38,7 +38,7 @@ namespace game
             _board = new bool[boardSize, boardSize]; // each cell initialised as false
             _numberMinesHit = 0;
             _minesInBoard = 0;
-
+            Console.WriteLine("in Mines initialise");
         }
         // if less than mineCount mines in the board then run random again to vcreate more.
         // And remember  - do NOT delete existing mines
@@ -47,23 +47,34 @@ namespace game
             bool enoughMines;
             do
             {
-                _minesInBoard = 0;
+                Console.WriteLine("makeBoardWithMines - do");
                 var rand = new Random();
+                Console.WriteLine("random " + rand);
                 for (int i = 0; i < boardSize; i++)
                 {
                     for (int j = 0; j < boardSize; j++)
                     {
                         var result = rand.NextDouble();
-                        if (isMineCell(new Cell(i, j)))
+                        Console.WriteLine("random " + result);
+
+                        if (result < _mineFactor)
                         {
-                            if (result < _mineFactor)
+                            if (!isMineCell(new Cell(i, j)))
                             {
                                 setCellAsMine(new Cell(i, j));
-                                _minesInBoard++;
                             }
                         }
+                        // if (isMineCell(new Cell(i, j)))
+                        // {
+                        //     if (result < _mineFactor)
+                        //     { 
+                        //         setCellAsMine(new Cell(i, j));
+                        //         _minesInBoard++;
+                        //     }
+                        // }
                     }
                 }
+                Console.WriteLine("_minesInBoard " + _minesInBoard + " minecount " + _mineCount);
                 enoughMines = (_minesInBoard >= _mineCount);
             }
 
@@ -100,28 +111,28 @@ namespace game
         {
 
             _board[cell.i, cell.j] = true;
-            _numberMinesHit++;
+            _minesInBoard++;
         }
 
         public string toString()
         {
 
             StringBuilder val = new StringBuilder();
-            val.Append(string.Format("Mine count ={} ", _minesInBoard));
+            val.Append(string.Format("Mine count ={0} ", _minesInBoard));
             for (int i = 0; i < boardSize; i++)
             {
                 for (int j = 0; j < boardSize; j++)
                 {
-                    cellReference(val, i, j);
+                    Cell cell = new Cell(i,j);
+                    if (isMineCell(cell)) cellReference(val, cell);
                 }
             }
 
             return val.Remove(val.Length - 1, 1).ToString();
         }
 
-        private void cellReference(StringBuilder val, int i, int j)
+        private void cellReference(StringBuilder val, Cell cell)
         {
-            var cell = new Cell(i,j);
             val.Append(cell.toString());
             val.Append(" ");
         }
