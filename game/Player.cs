@@ -1,54 +1,82 @@
 using System.Net;
 
-namespace game {
-    public class Player {
+namespace game
+{
+    public class Player
+    {
         private Cell _currentPosition;
         int _moves;
         int _livesRemaining;
-        bool _playerWins ;
+        bool _playerWins;
         bool _gameOver;
-        const string columns="abcdefgh"; // list of column names to find by IndexOf
+        const string columns = "abcdefgh"; // list of column names to find by IndexOf
         Mines _board;
 
         // Player start on columns a to h
         // Start on row 0 and must go to row 7 to win
-        public Player (char initialColumn,Mines mines){
-                //   CultureInfo[] cultures= { CultureInfo.CreateSpecificCulture("en-US"),
-                //                 CultureInfo.InvariantCulture,
-                //                 CultureInfo.CreateSpecificCulture("tr-TR") };           
+        public Player(char initialColumn, Mines mines)
+        {
+            //   CultureInfo[] cultures= { CultureInfo.CreateSpecificCulture("en-US"),
+            //                 CultureInfo.InvariantCulture,
+            //                 CultureInfo.CreateSpecificCulture("tr-TR") };           
             char lower = Char.ToLower(initialColumn);
             int i = columns.IndexOf(lower);
-            if (i<0) { { throw new InvalidColumn(initialColumn); } }
+            if (i < 0) { { throw new InvalidColumn(initialColumn); } }
             _board = mines;
-            _currentPosition = new Cell(i,0);
+            _currentPosition = new Cell(i, 0);
         }
-        public Player(Mines mines,Cell position,int moves, int remainingLives, bool gameOver){
+        public Player(Mines mines, Cell position, int moves, int remainingLives, bool gameOver)
+        {
             _board = mines;
             _currentPosition = position;
-            moves=_moves;
-            _livesRemaining=remainingLives;
-            _gameOver=gameOver;
+            _moves = moves;
+            _livesRemaining = remainingLives;
+            _gameOver = gameOver;
         }
 
-        public int Moves {
+        public int Moves
+        {
             get => _moves;
         }
-        public int LivesRemaining {
+        public int LivesRemaining
+        {
             get => _livesRemaining;
         }
-        public Player Up() {
-             return _board.Up2(this);
+        public Player Up()
+        {
+            if (_gameOver) return this;
+            return _board.Up2(this);
         }
 
-        public Cell getCurrentPosition() {
+        public Cell getCurrentPosition()
+        {
             return _currentPosition;
         }
-        public bool gameOverPlayerWins(Cell position) {
+        public bool gameOverPlayerWins(Cell position)
+        {
             return _board.gameOverPlayerWins(position);
         }
-        public string playerStatus(){
+        public string playerStatus()
+        {
             int i = 3;
             return _currentPosition.position() + " lives remaining " + i + "moves taken " + _moves;
+        }
+
+        public override bool Equals(object obj)
+        {
+
+
+            if (obj is null) return false;
+            if (object.ReferenceEquals(this, obj)) return true;
+
+            var other = obj as Player;
+            if (other is null) return false;
+            // private Cell _currentPosition;
+            if (_moves != other.Moves) return false;
+            if (_livesRemaining != other.LivesRemaining) return false;
+            if (_board != other._board) return false;
+
+            return true;
         }
 
     }

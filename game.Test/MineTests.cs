@@ -58,6 +58,47 @@ namespace game.Test
             Assert.Equal(expected.i, player.getCurrentPosition().i);
             Assert.Equal(expected.j, player.getCurrentPosition().j);
         }
+
+
+        [Fact]
+        public void given_UpCommand_then_MovesIncreaseLivesDecrease()
+        {
+            const int mineCount = 2;
+            Cell[] mineCells = new Cell[3] { new Cell(0, 0), new Cell(1, 2), new Cell(2, 3) };
+            var mines = new Mines(mineCells, mineCount);
+            var player = new Player(mines, new Cell(1, 1), 1, 2, false);
+            var movedPlayer = player.Up();
+            var expected = new Player(mines, new Cell(1, 2), 2, 2, false);
+            // Assert.Equal(expected, player.getCurrentPosition());
+            Assert.Equal(expected, movedPlayer);
+            // Assert.Equal(expected, player.getCurrentPosition().j);
+        }
+        [Fact]
+        public void given_UpCommandOntoMine_then_GameEndWithZeroLives()
+        {
+            const int mineCount = 1;
+            Cell[] mineCells = new Cell[3] { new Cell(0, 0), new Cell(1, 2), new Cell(2, 3) };
+            var mines = new Mines(mineCells, mineCount);
+            var player = new Player(mines, new Cell(1, 1), 1, 1, false);
+            var movedPlayer = player.Up();
+            var expected = new Player(mines, new Cell(1, 2), 2, 0, false);
+            // Assert.Equal(expected, player.getCurrentPosition());
+            Assert.Equal(expected, movedPlayer);
+            // Assert.Equal(expected, player.getCurrentPosition().j);
+        }
+        [Fact]
+        public void given_UpCommandOntoLastLine_then_GameEndPlayerWins()
+        {
+            const int mineCount = 1;
+            Cell[] mineCells = new Cell[3] { new Cell(0, 0), new Cell(1, 2), new Cell(2, 3) };
+            var mines = new Mines(mineCells, mineCount);
+            var player = new Player(mines, new Cell(1, 6), 1, 1, false);
+            var movedPlayer = player.Up();
+            var expected = new Player(mines, new Cell(1, 7), 2, 1, true);
+            // Assert.Equal(expected, player.getCurrentPosition());
+            Assert.Equal(expected, movedPlayer);
+            // Assert.Equal(expected, player.getCurrentPosition().j);
+        }
     }
 }
 

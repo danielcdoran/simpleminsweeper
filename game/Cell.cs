@@ -43,5 +43,15 @@ namespace game
         public string position(){
             return "Position " + letters[_j] + numbers[_i];
         }
+                public override bool Equals(object obj)
+        {
+            var other = obj as Cell;
+            if (other == null)
+                return false;
+            // private Cell _currentPosition;
+            if (_i != other.i) return false;
+            if (_j != other.j) return false;
+            return true;
+        }
     }
 }

@@ -184,14 +184,11 @@ namespace game
 
             if (isInRange(cell.i , cell.j+1))
             {
-                if (isMineCell(cell))
+                if (isMineCell(movedCell))
                 {
                     lives--;
                 }
-                else
-                {
                     moves++;
-                }
             }
             else
             {
@@ -204,7 +201,7 @@ namespace game
         private bool gameTerminates(Cell movedCell, int lives)
         {
             if (lives == 0) { return true; }
-            if (movedCell.i == boardSize - 1) { return true; }
+            if (movedCell.j == boardSize - 1) { return true; }
             return false;
         }
         public bool gameOverPlayerWins(Cell position)
