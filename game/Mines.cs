@@ -159,6 +159,17 @@ namespace game
             if (column > 7) { return false; }
             return true;
         }
+
+        public bool isInRange(Cell cell)
+        {
+            int row = cell.i;
+            int column = cell.j;
+            if (row < 0) { return false; }
+            if (row > 7) { return false; }
+            if (column < 0) { return false; }
+            if (column > 7) { return false; }
+            return true;
+        }
         // if out of range Cell reurns (0,0) pooint as default
         public Cell getCell(int i, int j)
         {
@@ -171,33 +182,56 @@ namespace game
             return new Player(this, player.getCurrentPosition(), player.Moves, player.LivesRemaining, false);
         }
 
-        public Cell Up(Cell position)
-        {
-            return getCell(position.i + 1, position.j);
-        }
-        public Player Up2(Player playerBeforeMove)
+        // public Cell Up(Cell position)
+        // {
+        //     return getCell(position.i + 1, position.j);
+        // }
+        public Player Up(Player playerBeforeMove)
         {
             var cell = playerBeforeMove.getCurrentPosition();
             var moves = playerBeforeMove.Moves;
             var lives = playerBeforeMove.LivesRemaining;
-            var movedCell = new Cell(cell.i, cell.j+1);
+            var movedCell = new Cell(cell.i, cell.j + 1);
 
-            if (isInRange(cell.i , cell.j+1))
+            if (isInRange(movedCell))
             {
                 if (isMineCell(movedCell))
                 {
                     lives--;
                 }
-                    moves++;
+                moves++;
             }
             else
             {
                 return notValidMove(playerBeforeMove);
             }
             bool gameOver = gameTerminates(movedCell, lives);
-            return new Player(this, movedCell, moves, lives,gameOver);
+            return new Player(this, movedCell, moves, lives, gameOver);
         }
 
+        public Player Down(Player playerBeforeMove)
+        {
+            var cell = playerBeforeMove.getCurrentPosition();
+            var movedCell = new Cell(cell.i, cell.j - 1);
+            var moves = playerBeforeMove.Moves;
+            var lives = playerBeforeMove.LivesRemaining;
+
+
+            if (isInRange(movedCell))
+            {
+                if (isMineCell(movedCell))
+                {
+                    lives--;
+                }
+                moves++;
+            }
+            else
+            {
+                return notValidMove(playerBeforeMove);
+            }
+            bool gameOver = gameTerminates(movedCell, lives);
+            return new Player(this, movedCell, moves, lives, gameOver);
+        }
         private bool gameTerminates(Cell movedCell, int lives)
         {
             if (lives == 0) { return true; }

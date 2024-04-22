@@ -45,9 +45,13 @@ namespace game
         public Player Up()
         {
             if (_gameOver) return this;
-            return _board.Up2(this);
+            return _board.Up(this);
         }
-
+        public Player Down()
+        {
+            if (_gameOver) return this;
+            return _board.Down(this);
+        }
         public Cell getCurrentPosition()
         {
             return _currentPosition;
@@ -64,13 +68,10 @@ namespace game
 
         public override bool Equals(object obj)
         {
-
-
             if (obj is null) return false;
             if (object.ReferenceEquals(this, obj)) return true;
 
             var other = obj as Player;
-            if (other is null) return false;
             // private Cell _currentPosition;
             if (_moves != other.Moves) return false;
             if (_livesRemaining != other.LivesRemaining) return false;

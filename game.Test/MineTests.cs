@@ -99,6 +99,18 @@ namespace game.Test
             Assert.Equal(expected, movedPlayer);
             // Assert.Equal(expected, player.getCurrentPosition().j);
         }
+
+                [Fact]
+        public void given_DownCommand_then_MoveDown()
+        {
+            const int mineCount = 1;
+            Cell[] mineCells = new Cell[3] { new Cell(0, 0), new Cell(1, 2), new Cell(2, 3) };
+            var mines = new Mines(mineCells, mineCount);
+            var player = new Player(mines, new Cell(1, 6), 1, 1, false);
+            var movedPlayer = player.Down();
+            var expected = new Player(mines, new Cell(1, 5), 2, 1, true);
+            Assert.Equal(expected, movedPlayer);
+        }
     }
 }
 
