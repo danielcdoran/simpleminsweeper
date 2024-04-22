@@ -1,5 +1,6 @@
 using System;
 using System.Data;
+using System.Text;
 
 namespace game
 {
@@ -53,5 +54,25 @@ namespace game
             if (_j != other.j) return false;
             return true;
         }
+        public Cell Up(){
+            return new Cell(_i,_j + 1);
+        }
+                public Cell Down(){
+            return new Cell(_i,_j - 1);
+        }
+                        public Cell Right(){
+            return new Cell(_i + 1,_j);
+        }
+
+                        public Cell Left(){
+            return new Cell(_i -1,_j);
+        }
+    public string toString(){
+        var address = new StringBuilder();
+        address.Append(letters[_i]);
+        address.Append(numbers[_j]);
+        return address.ToString();
+    }
+
     }
 }

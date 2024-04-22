@@ -112,16 +112,18 @@ namespace game
             {
                 for (int j = 0; j < boardSize; j++)
                 {
-                    appendCellReferenceAsString(val, i, j);
+                    cellReference(val, i, j);
                 }
             }
 
             return val.Remove(val.Length - 1, 1).ToString();
         }
 
-        private void appendCellReferenceAsString(StringBuilder val, int i, int j)
+        private void cellReference(StringBuilder val, int i, int j)
         {
-            val.Append("(" + i + "," + j + ")=" + _board[i, j] + ",");
+            var cell = new Cell(i,j);
+            val.Append(cell.toString());
+            val.Append(" ");
         }
 
         // public string toStringMines()
@@ -189,9 +191,14 @@ namespace game
         public Player Up(Player playerBeforeMove)
         {
             var cell = playerBeforeMove.getCurrentPosition();
+            var movedCell = cell.Up();
+            return updatePlayer(playerBeforeMove, movedCell);
+        }
+
+        private Player updatePlayer(Player playerBeforeMove, Cell movedCell)
+        {
             var moves = playerBeforeMove.Moves;
             var lives = playerBeforeMove.LivesRemaining;
-            var movedCell = new Cell(cell.i, cell.j + 1);
 
             if (isInRange(movedCell))
             {
@@ -212,26 +219,24 @@ namespace game
         public Player Down(Player playerBeforeMove)
         {
             var cell = playerBeforeMove.getCurrentPosition();
-            var movedCell = new Cell(cell.i, cell.j - 1);
-            var moves = playerBeforeMove.Moves;
-            var lives = playerBeforeMove.LivesRemaining;
-
-
-            if (isInRange(movedCell))
-            {
-                if (isMineCell(movedCell))
-                {
-                    lives--;
-                }
-                moves++;
-            }
-            else
-            {
-                return notValidMove(playerBeforeMove);
-            }
-            bool gameOver = gameTerminates(movedCell, lives);
-            return new Player(this, movedCell, moves, lives, gameOver);
+            var movedCell = cell.Down();
+            return updatePlayer(playerBeforeMove, movedCell);
         }
+
+        public Player Right(Player playerBeforeMove)
+        {
+            var cell = playerBeforeMove.getCurrentPosition();
+            var movedCell = cell.Right();
+            return updatePlayer(playerBeforeMove, movedCell);
+        }
+
+        public Player Left(Player playerBeforeMove)
+        {
+            var cell = playerBeforeMove.getCurrentPosition();
+            var movedCell = cell.Left();
+            return updatePlayer(playerBeforeMove, movedCell);
+        }
+
         private bool gameTerminates(Cell movedCell, int lives)
         {
             if (lives == 0) { return true; }

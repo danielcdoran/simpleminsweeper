@@ -52,6 +52,17 @@ namespace game
             if (_gameOver) return this;
             return _board.Down(this);
         }
+
+           public Player Right()
+        {
+            if (_gameOver) return this;
+            return _board.Right(this);
+        }
+               public Player Left()
+        {
+            if (_gameOver) return this;
+            return _board.Left(this);
+        }
         public Cell getCurrentPosition()
         {
             return _currentPosition;

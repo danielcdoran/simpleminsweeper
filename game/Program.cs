@@ -9,8 +9,9 @@ namespace game
         {
             const double mineFillFactor = 0.1;
             const int mineCount = 2;
-
+Console.WriteLine("BEfore");
             var mines = new Mines(mineFillFactor, mineCount);
+            Console.WriteLine(mines.toString());
             var player = new Player('a', mines);
             bool gameEnded = false;
             bool correct = true;
