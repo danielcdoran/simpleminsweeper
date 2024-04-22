@@ -1,5 +1,7 @@
 using System;
+using System.Data;
 using System.Diagnostics;
+using System.Globalization;
 using System.Text;
 
 namespace game
@@ -105,7 +107,7 @@ namespace game
         {
 
             StringBuilder val = new StringBuilder();
-            val.Append(string.Format("Mine count ={} ",_minesInBoard));
+            val.Append(string.Format("Mine count ={} ", _minesInBoard));
             for (int i = 0; i < boardSize; i++)
             {
                 for (int j = 0; j < boardSize; j++)
@@ -145,8 +147,69 @@ namespace game
         {
             get { return _numberMinesHit; }
         }
-        public int minesInBoard {
+        public int minesInBoard
+        {
             get => _minesInBoard;
+        }
+        public bool isInRange(int row, int column)
+        {
+            if (row < 0) { return false; }
+            if (row > 7) { return false; }
+            if (column < 0) { return false; }
+            if (column > 7) { return false; }
+            return true;
+        }
+        // if out of range Cell reurns (0,0) pooint as default
+        public Cell getCell(int i, int j)
+        {
+            if (isInRange(i, j)) { return new Cell(i, j); }
+            return new Cell(0, 0);
+        }
+
+        private Player notValidMove(Player player)
+        {
+            return new Player(this, player.getCurrentPosition(), player.Moves, player.LivesRemaining, false);
+        }
+
+        public Cell Up(Cell position)
+        {
+            return getCell(position.i + 1, position.j);
+        }
+        public Player Up2(Player playerBeforeMove)
+        {
+            var cell = playerBeforeMove.getCurrentPosition();
+            var moves = playerBeforeMove.Moves;
+            var lives = playerBeforeMove.LivesRemaining;
+            var movedCell = new Cell(cell.i, cell.j+1);
+
+            if (isInRange(cell.i , cell.j+1))
+            {
+                if (isMineCell(cell))
+                {
+                    lives--;
+                }
+                else
+                {
+                    moves++;
+                }
+            }
+            else
+            {
+                return notValidMove(playerBeforeMove);
+            }
+            bool gameOver = gameTerminates(movedCell, lives);
+            return new Player(this, movedCell, moves, lives,gameOver);
+        }
+
+        private bool gameTerminates(Cell movedCell, int lives)
+        {
+            if (lives == 0) { return true; }
+            if (movedCell.i == boardSize - 1) { return true; }
+            return false;
+        }
+        public bool gameOverPlayerWins(Cell position)
+        {
+            return position.j == 7;
         }
     }
 

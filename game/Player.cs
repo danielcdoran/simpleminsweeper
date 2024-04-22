@@ -1,3 +1,5 @@
+using System.Net;
+
 namespace game {
     public class Player {
         private Cell _currentPosition;
@@ -17,16 +19,36 @@ namespace game {
             char lower = Char.ToLower(initialColumn);
             int i = columns.IndexOf(lower);
             if (i<0) { { throw new InvalidColumn(initialColumn); } }
-            mines = _board;
+            _board = mines;
             _currentPosition = new Cell(i,0);
         }
-        public void Up() {
-            _currentPosition = _currentPosition.Up();
-            return; 
+        public Player(Mines mines,Cell position,int moves, int remainingLives, bool gameOver){
+            _board = mines;
+            _currentPosition = position;
+            moves=_moves;
+            _livesRemaining=remainingLives;
+            _gameOver=gameOver;
+        }
+
+        public int Moves {
+            get => _moves;
+        }
+        public int LivesRemaining {
+            get => _livesRemaining;
+        }
+        public Player Up() {
+             return _board.Up2(this);
         }
 
         public Cell getCurrentPosition() {
             return _currentPosition;
+        }
+        public bool gameOverPlayerWins(Cell position) {
+            return _board.gameOverPlayerWins(position);
+        }
+        public string playerStatus(){
+            int i = 3;
+            return _currentPosition.position() + " lives remaining " + i + "moves taken " + _moves;
         }
 
     }

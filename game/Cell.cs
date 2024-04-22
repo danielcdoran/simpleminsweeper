@@ -7,7 +7,8 @@ namespace game
     {
         private int _i;  // Backing store
         private int _j;
-
+        const string letters = "abcdefgh";
+        const string numbers = "12345678";
         public int i
         {
             get => _i;
@@ -38,9 +39,9 @@ namespace game
             if (j > 7) { return false; }
             return true;
         }
-        public Cell Up() {
-            if (i + 1 > 7) { return this;}
-            return new Cell(i+1,j);
+
+        public string position(){
+            return "Position " + letters[_j] + numbers[_i];
         }
     }
 }
