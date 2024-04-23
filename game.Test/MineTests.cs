@@ -8,6 +8,7 @@ namespace game.Test
 // This could be a "flakey" tet because it uses a random function;
         [Fact]
         public void GivenMinesFillFactor_thenProduceBoardWithMines()
+      
         {
             Mines initial = new Mines(0.9, 2);
             string output = initial.toString();

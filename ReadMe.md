@@ -2,3 +2,5 @@ https://mail.google.com/mail/u/0/#label/ActionRequired/FMfcgzGxSlKshjLJXkQWPQKVj
 
 dotnet add package Microsoft.EntityFrameworkCore
 dotnet add package xunit
+
+https://github.com/dotnet/dotnet-docker/blob/main/samples/dotnetapp/Dockerfile
