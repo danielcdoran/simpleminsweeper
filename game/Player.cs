@@ -46,6 +46,9 @@ namespace game
         {
             get => _livesRemaining;
         }
+        public bool GameOver {
+            get => _gameOver;
+        }
         public Player Up()
         {
             if (_gameOver) return this;
