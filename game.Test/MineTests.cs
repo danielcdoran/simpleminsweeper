@@ -22,7 +22,6 @@ namespace game.Test
             Cell[] mineCells = new Cell[3] { new Cell(0, 0), new Cell(1, 2), new Cell(2, 3) };
             Mines initial = new Mines(mineCells, 2);
             Assert.Equal(expectedMineCount, initial.minesInBoard);
-            // Assert.True(initial.toStringMines().Length > 22);
         }
 
         [Fact]
@@ -66,9 +65,9 @@ namespace game.Test
             const int mineCount = 2;
             Cell[] mineCells = new Cell[3] { new Cell(0, 0), new Cell(1, 2), new Cell(2, 3) };
             var mines = new Mines(mineCells, mineCount);
-            var player = new Player(mines, new Cell(1, 1), 1, 2, false);
+            var player = new Player(mines, new Cell(1, 1), 1,  false);
             var movedPlayer = player.Up();
-            var expected = new Player(mines, new Cell(1, 2), 2, 1, false);
+            var expected = new Player(mines, new Cell(1, 2), 2, false);
             // Assert.Equal(expected, player.getCurrentPosition());
             Assert.Equal(expected, movedPlayer);
             // Assert.Equal(expected, player.getCurrentPosition().j);
@@ -79,9 +78,9 @@ namespace game.Test
             const int mineCount = 1;
             Cell[] mineCells = new Cell[3] { new Cell(0, 0), new Cell(1, 2), new Cell(2, 3) };
             var mines = new Mines(mineCells, mineCount);
-            var player = new Player(mines, new Cell(1, 1), 1, 1, false);
+            var player = new Player(mines, new Cell(1, 1), 1,  false);
             var movedPlayer = player.Up();
-            var expected = new Player(mines, new Cell(1, 2), 2, 0, false);
+            var expected = new Player(mines, new Cell(1, 2), 2,  false);
             // Assert.Equal(expected, player.getCurrentPosition());
             Assert.Equal(expected, movedPlayer);
             // Assert.Equal(expected, player.getCurrentPosition().j);
@@ -92,9 +91,9 @@ namespace game.Test
             const int mineCount = 1;
             Cell[] mineCells = new Cell[3] { new Cell(0, 0), new Cell(1, 2), new Cell(2, 3) };
             var mines = new Mines(mineCells, mineCount);
-            var player = new Player(mines, new Cell(1, 6), 1, 1, false);
+            var player = new Player(mines, new Cell(1, 6), 1,  false);
             var movedPlayer = player.Up();
-            var expected = new Player(mines, new Cell(1, 7), 2, 1, true);
+            var expected = new Player(mines, new Cell(1, 7), 2,  true);
             // Assert.Equal(expected, player.getCurrentPosition());
             Assert.Equal(expected, movedPlayer);
             // Assert.Equal(expected, player.getCurrentPosition().j);
@@ -106,9 +105,9 @@ namespace game.Test
             const int mineCount = 1;
             Cell[] mineCells = new Cell[3] { new Cell(0, 0), new Cell(1, 2), new Cell(2, 3) };
             var mines = new Mines(mineCells, mineCount);
-            var player = new Player(mines, new Cell(1, 6), 1, 1, false);
+            var player = new Player(mines, new Cell(1, 6), 1,  false);
             var movedPlayer = player.Down();
-            var expected = new Player(mines, new Cell(1, 5), 2, 1, true);
+            var expected = new Player(mines, new Cell(1, 5), 2,  true);
             Assert.Equal(expected, movedPlayer);
         }
     }

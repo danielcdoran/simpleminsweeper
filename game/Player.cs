@@ -24,13 +24,14 @@ namespace game
             if (i < 0) { { throw new InvalidColumn(initialColumn); } }
             _board = mines;
             _currentPosition = new Cell(i, 0);
+            _livesRemaining = mines.MaxMinesAllowed;
         }
-        public Player(Mines mines, Cell position, int moves, int remainingLives, bool gameOver)
+        public Player(Mines mines, Cell position, int moves, bool gameOver)
         {
             _board = mines;
             _currentPosition = position;
             _moves = moves;
-            _livesRemaining = remainingLives;
+            _livesRemaining = mines.MaxMinesAllowed - mines.NumberMines;
             _gameOver = gameOver;
         }
 
@@ -73,8 +74,7 @@ namespace game
         }
         public string playerStatus()
         {
-            int i = 3;
-            return _currentPosition.position() + " lives remaining " + i + "moves taken " + _moves;
+            return _currentPosition.position() + " lives remaining " + _livesRemaining + " moves taken " + _moves;
         }
 
         public override bool Equals(object obj)

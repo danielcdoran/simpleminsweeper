@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Globalization;
@@ -11,23 +12,23 @@ namespace game
         const int boardSize = 8;
         bool[,] _board;
         private int _numberMinesHit;
-        private int _mineCount;
+        private int _maxMinesAllowed;
         private int _minesInBoard;
         private double _mineFactor;
 
 
 
-        public Mines(double mineFactor, int mineCount)
+        public Mines(double mineFactor, int maxMinesAllowedToHit
+        )
         {
-
             if (mineFactor < 0.01) { throw new InvalidBoardFillFactor(mineFactor); } // if fillFactor is 0 mines will never be created
             if (mineFactor >= 1.0) { throw new InvalidBoardFillFactor(mineFactor); }
 
-            if (mineCount < 1) { throw new InvalidMineCount(mineCount); }
-            if (mineCount > 64) { throw new InvalidMineCount(mineCount); } // can't be bigger than number of squares on board
+            if (maxMinesAllowedToHit < 1) { throw new InvalidMineCount(maxMinesAllowedToHit); }
+            if (maxMinesAllowedToHit > 64) { throw new InvalidMineCount(maxMinesAllowedToHit); } // can't be bigger than number of squares on board
 
             initialise();
-            _mineCount = mineCount;
+            _maxMinesAllowed = maxMinesAllowedToHit;
             _mineFactor = mineFactor;
             makeBoardWithMines();
 
@@ -38,7 +39,6 @@ namespace game
             _board = new bool[boardSize, boardSize]; // each cell initialised as false
             _numberMinesHit = 0;
             _minesInBoard = 0;
-            Console.WriteLine("in Mines initialise");
         }
         // if less than mineCount mines in the board then run random again to vcreate more.
         // And remember  - do NOT delete existing mines
@@ -47,16 +47,12 @@ namespace game
             bool enoughMines = false;
             do
             {
-                Console.WriteLine("makeBoardWithMines - do");
                 var rand = new Random();
-                Console.WriteLine("random " + rand);
                 for (int i = 0; i < boardSize; i++)
                 {
                     for (int j = 0; j < boardSize; j++)
                     {
                         var result = rand.NextDouble();
-                        Console.WriteLine("random " + result);
-
                         if (result < _mineFactor)
                         {
                             if (!isMineCell(new Cell(i, j)))
@@ -66,15 +62,15 @@ namespace game
                         }
                     }
                 }
-                Console.WriteLine("_minesInBoard " + _minesInBoard + " minecount " + _mineCount);
-                enoughMines = (_minesInBoard >= _mineCount);
+                Console.WriteLine("_minesInBoard " + _minesInBoard + " minecount " + _maxMinesAllowed);
+                enoughMines = (_minesInBoard >= _maxMinesAllowed);
             } while (!enoughMines);
         }
 
         public Mines(Cell[] cellsSetAsMine, int mineCount)
         {
             initialise();
-            _mineCount = mineCount;
+            _maxMinesAllowed = mineCount;
             foreach (Cell cell in cellsSetAsMine)
             {
                 setCellAsMine(cell);
@@ -114,7 +110,7 @@ namespace game
             {
                 for (int j = 0; j < boardSize; j++)
                 {
-                    Cell cell = new Cell(i,j);
+                    Cell cell = new Cell(i, j);
                     if (isMineCell(cell)) cellReference(val, cell);
                 }
             }
@@ -128,24 +124,6 @@ namespace game
             val.Append(" ");
         }
 
-        // public string toStringMines()
-        // {
-        //     StringBuilder val = new StringBuilder();
-        //     if (_numberMinesHit == 0)
-        //     {
-        //         val.Append("Mine count = " + _numberMinesHit + " No cells filled");
-        //         return val.ToString();
-        //     }
-        //     val.Append("Mine count " + _numberMinesHit + "in cells ");
-        //     for (int i = 0; i < boardSize; i++)
-        //     {
-        //         for (int j = 0; j < boardSize; j++)
-        //         {
-        //             if (_board[i, j]) { appendCellReferenceAsString(val, i, j); ; }
-        //         }
-        //     }
-        //     return val.Remove(val.Length - 1, 1).ToString();
-        // }
 
         public int NumberMines
         {
@@ -154,6 +132,10 @@ namespace game
         public int minesInBoard
         {
             get => _minesInBoard;
+        }
+        public int MaxMinesAllowed
+        {
+            get => _maxMinesAllowed;
         }
         public bool isInRange(int row, int column)
         {
@@ -180,16 +162,13 @@ namespace game
             if (isInRange(i, j)) { return new Cell(i, j); }
             return new Cell(0, 0);
         }
-
-        private Player notValidMove(Player player)
+        // Just increment the moves
+        private Player notValidMoveIncrementMoves(Player player)
         {
-            return new Player(this, player.getCurrentPosition(), player.Moves, player.LivesRemaining, false);
+            int moves = player.Moves + 1;
+            return new Player(this, player.getCurrentPosition(), moves, false);
         }
 
-        // public Cell Up(Cell position)
-        // {
-        //     return getCell(position.i + 1, position.j);
-        // }
         public Player Up(Player playerBeforeMove)
         {
             var cell = playerBeforeMove.getCurrentPosition();
@@ -202,20 +181,14 @@ namespace game
             var moves = playerBeforeMove.Moves;
             var lives = playerBeforeMove.LivesRemaining;
 
-            if (isInRange(movedCell))
+            if (!isInRange(movedCell)) return notValidMoveIncrementMoves(playerBeforeMove);
+            if (isMineCell(movedCell))
             {
-                if (isMineCell(movedCell))
-                {
-                    lives--;
-                }
-                moves++;
+                lives--;
             }
-            else
-            {
-                return notValidMove(playerBeforeMove);
-            }
+            moves++;
             bool gameOver = gameTerminates(movedCell, lives);
-            return new Player(this, movedCell, moves, lives, gameOver);
+            return new Player(this, movedCell, moves, gameOver);
         }
 
         public Player Down(Player playerBeforeMove)

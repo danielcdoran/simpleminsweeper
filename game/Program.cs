@@ -9,15 +9,24 @@ namespace game
         {
             const double mineFillFactor = 0.1;
             const int mineCount = 2;
-Console.WriteLine("BEfore");
+            const string columns = "abcdefgh";
             var mines = new Mines(mineFillFactor, mineCount);
             Console.WriteLine(mines.toString());
-            var player = new Player('a', mines);
             bool gameEnded = false;
             bool correct = true;
             //     int i, j;
+            char startColumn;
+                do
+                {
+                    Console.WriteLine("Set column (a-h) on bottom row to start");
+                    string input_column = Console.ReadLine();
+                    char[] characters = input_column.ToCharArray();
+                    startColumn = Char.ToLower(characters[0]);
+                    correct = (columns.IndexOf(startColumn) != -1);
+                    if (!correct) Console.WriteLine("TRy again. This column is not allowed");
+                } while (!correct);
             Char command;
-
+              var player = new Player(startColumn, mines);
             do
             {
                 do
@@ -30,16 +39,16 @@ Console.WriteLine("BEfore");
 
                 switch (command) {
                     case 'U':
-                        player.Up();
+                        player = player.Up();
                         break;
                     case 'D':
-                        player.Up();
+                        player = player.Down();
                         break;
                     case 'R':
-                        player.Up();
+                        player = player.Right();
                         break;
                     case 'L':
-                        player.Up();
+                        player = player.Left();
                         break;
                     default:
                         break;
