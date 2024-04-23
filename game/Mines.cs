@@ -62,7 +62,6 @@ namespace game
                         }
                     }
                 }
-                Console.WriteLine("_minesInBoard " + _minesInBoard + " minecount " + _maxMinesAllowed);
                 enoughMines = (_minesInBoard >= _maxMinesAllowed);
             } while (!enoughMines);
         }
@@ -184,7 +183,6 @@ namespace game
         {
             var cell = playerBeforeMove.getCurrentPosition();
             var movedCell = cell.Up();
-            Console.WriteLine("player up " + movedCell.toString());
             return updatePlayer(playerBeforeMove, movedCell);
         }
 
