@@ -77,6 +77,10 @@ namespace game
             }
         }
 
+        private bool noLivesRemaining()
+        {
+            return (_maxMinesAllowed - _numberMinesHit <= 0);
+        }
         public bool isMineCell(Cell cell)
         {
             var i = cell.i;
@@ -129,6 +133,13 @@ namespace game
         {
             get { return _numberMinesHit; }
         }
+        public void addMineHit() {
+            _numberMinesHit++;
+        }
+        public int livesRemaining()
+        {
+            return _maxMinesAllowed - _numberMinesHit;
+        }
         public int minesInBoard
         {
             get => _minesInBoard;
@@ -173,21 +184,21 @@ namespace game
         {
             var cell = playerBeforeMove.getCurrentPosition();
             var movedCell = cell.Up();
+            Console.WriteLine("player up " + movedCell.toString());
             return updatePlayer(playerBeforeMove, movedCell);
         }
 
         private Player updatePlayer(Player playerBeforeMove, Cell movedCell)
         {
-            var moves = playerBeforeMove.Moves;
-            var lives = playerBeforeMove.LivesRemaining;
+            var moves = playerBeforeMove.Moves; ;
 
             if (!isInRange(movedCell)) return notValidMoveIncrementMoves(playerBeforeMove);
             if (isMineCell(movedCell))
             {
-                lives--;
+                _numberMinesHit++;
             }
             moves++;
-            bool gameOver = gameTerminates(movedCell, lives);
+            bool gameOver = gameTerminates(movedCell);
             return new Player(this, movedCell, moves, gameOver);
         }
 
@@ -212,9 +223,9 @@ namespace game
             return updatePlayer(playerBeforeMove, movedCell);
         }
 
-        private bool gameTerminates(Cell movedCell, int lives)
+        private bool gameTerminates(Cell movedCell)
         {
-            if (lives == 0) { return true; }
+            if  ( noLivesRemaining() ) return true; 
             if (movedCell.j == boardSize - 1) { return true; }
             return false;
         }

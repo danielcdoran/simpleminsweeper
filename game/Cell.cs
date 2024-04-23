@@ -29,11 +29,12 @@ namespace game
         }
         public Cell(int i, int j)
         {
-                _i = i;
-                _j = j;
+            _i = i;
+            _j = j;
         }
 
-        public bool isInRange() {
+        public bool isInRange()
+        {
             if (i < 0) { return false; }
             if (i > 7) { return false; }
             if (j < 0) { return false; }
@@ -41,10 +42,11 @@ namespace game
             return true;
         }
 
-        public string position(){
-            return "Position " + letters[_j] + numbers[_i];
+        public string position()
+        {
+            return "Position " + letters[_i] + numbers[_j];
         }
-                public override bool Equals(object obj)
+        public override bool Equals(object obj)
         {
             var other = obj as Cell;
             if (other == null)
@@ -54,25 +56,30 @@ namespace game
             if (_j != other.j) return false;
             return true;
         }
-        public Cell Up(){
-            return new Cell(_i,_j + 1);
+        public Cell Up()
+        {
+            return new Cell(_i, _j + 1);
         }
-                public Cell Down(){
-            return new Cell(_i,_j - 1);
+        public Cell Down()
+        {
+            return new Cell(_i, _j - 1);
         }
-                        public Cell Right(){
-            return new Cell(_i + 1,_j);
+        public Cell Right()
+        {
+            return new Cell(_i + 1, _j);
         }
 
-                        public Cell Left(){
-            return new Cell(_i -1,_j);
+        public Cell Left()
+        {
+            return new Cell(_i - 1, _j);
         }
-    public string toString(){
-        var address = new StringBuilder();
-        address.Append(letters[_i]);
-        address.Append(numbers[_j]);
-        return address.ToString();
-    }
+        public string toString()
+        {
+            var address = new StringBuilder();
+            address.Append(letters[_i]);
+            address.Append(numbers[_j]);
+            return address.ToString();
+        }
 
     }
 }

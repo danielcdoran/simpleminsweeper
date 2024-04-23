@@ -24,14 +24,17 @@ namespace game
             if (i < 0) { { throw new InvalidColumn(initialColumn); } }
             _board = mines;
             _currentPosition = new Cell(i, 0);
-            _livesRemaining = mines.MaxMinesAllowed;
+            if ( _board.isMineCell(_currentPosition)) {
+                _board.addMineHit();
+            }
+            _livesRemaining = mines.livesRemaining();
         }
         public Player(Mines mines, Cell position, int moves, bool gameOver)
         {
             _board = mines;
             _currentPosition = position;
             _moves = moves;
-            _livesRemaining = mines.MaxMinesAllowed - mines.NumberMines;
+            _livesRemaining = mines.livesRemaining();
             _gameOver = gameOver;
         }
 
