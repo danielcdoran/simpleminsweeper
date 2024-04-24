@@ -24,7 +24,8 @@ namespace game
             if (i < 0) { { throw new InvalidColumn(initialColumn); } }
             _board = mines;
             _currentPosition = new Cell(i, 0);
-            if ( _board.isMineCell(_currentPosition)) {
+            if (_board.isMineCell(_currentPosition))
+            {
                 _board.addMineHit();
             }
             _livesRemaining = mines.livesRemaining();
@@ -46,7 +47,8 @@ namespace game
         {
             get => _livesRemaining;
         }
-        public bool GameOver {
+        public bool GameOver
+        {
             get => _gameOver;
         }
         public Player Up()
@@ -60,16 +62,17 @@ namespace game
             return _board.Down(this);
         }
 
-           public Player Right()
+        public Player Right()
         {
             if (_gameOver) return this;
             return _board.Right(this);
         }
-               public Player Left()
+        public Player Left()
         {
             if (_gameOver) return this;
             return _board.Left(this);
         }
+
         public Cell getCurrentPosition()
         {
             return _currentPosition;
@@ -82,19 +85,43 @@ namespace game
         {
             return _currentPosition.position() + " lives remaining " + _livesRemaining + " moves taken " + _moves;
         }
-
-        public override bool Equals(object obj)
+        public Player runCommand(Char command)
         {
-            if (obj is null) return false;
-            if (object.ReferenceEquals(this, obj)) return true;
 
+            switch (Char.ToUpper(command))
+            {
+                case 'U':
+                    return this.Up();
+
+                case 'D':
+                    return this.Down();
+
+                case 'R':
+                    return this.Right();
+
+                case 'L':
+                    return this.Left();
+
+                default:
+                    return this;
+            };
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
             var other = obj as Player;
             // private Cell _currentPosition;
+            if (ReferenceEquals(null, other)) return false;
             if (_moves != other.Moves) return false;
             if (_livesRemaining != other.LivesRemaining) return false;
             if (_board != other._board) return false;
-
             return true;
+        }
+        public override int GetHashCode(){
+            return (_moves,_livesRemaining,_board).GetHashCode();
         }
 
     }

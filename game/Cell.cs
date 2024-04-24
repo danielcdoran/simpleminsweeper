@@ -46,15 +46,22 @@ namespace game
         {
             return "Position " + letters[_i] + numbers[_j];
         }
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
             var other = obj as Cell;
-            if (other == null)
-                return false;
+            // private Cell _currentPosition;
+            if (ReferenceEquals(null, other)) return false;
+
             // private Cell _currentPosition;
             if (_i != other.i) return false;
             if (_j != other.j) return false;
             return true;
+        }
+        public override int GetHashCode(){
+            return (_i,_j).GetHashCode();
         }
         public Cell Up()
         {
