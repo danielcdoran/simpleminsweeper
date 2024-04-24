@@ -12,7 +12,10 @@ namespace game
         {
             _mines = new Mines(mineFillFactor, livesAllowed);
         }
-
+        public Game(Mines mines)
+        {
+            _mines = mines;
+        }
         public void RunGame()
         {
             bool gameEnded = false;

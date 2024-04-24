@@ -23,7 +23,23 @@ namespace game.Test
             var player = new Player(mines);
             player = player.setStartPosition('a');
             string actualOutput = game.runCommands("cUURULUDUUUU", mines);
-            createTestfile(actualDirectory, "given_NoMines_when_UseCommands_thenPlayerWins.txt", actualOutput);
+            createTestfile(actualDirectory, outputFilename, actualOutput);
+            String actualString = readIntoString(actualDirectory, outputFilename);
+            String expectedString = readIntoString(expectedDirectory, outputFilename);
+            Assert.Equal(expectedString, actualString);
+        }
+
+        [Fact]
+        public void given_2Mines_when_HitsBoth_thenPlayerLosses()
+        {
+            string outputFilename = "given_2Mines_when_HitsBoth_thenPlayerLosses.txt";
+            Cell[] mineCells = new Cell[3] { new Cell(2, 2), new Cell(4, 2), new Cell(4, 6) };
+            var mines = new Mines(mineCells, mineCount);
+            var game = new Game(mines);
+            var player = new Player(mines);
+            player = player.setStartPosition('a');
+            string actualOutput = game.runCommands("cUURR", mines);
+            createTestfile(actualDirectory, outputFilename, actualOutput);
             String actualString = readIntoString(actualDirectory, outputFilename);
             String expectedString = readIntoString(expectedDirectory, outputFilename);
             Assert.Equal(expectedString, actualString);
@@ -56,24 +72,8 @@ namespace game.Test
             using (StreamWriter actualStream = new StreamWriter(actualFile, false))
             {
                 actualStream.Write(actualOutput);
-            } 
+            }
         }
     }
-    // static bool compareFiles(string path1, string path2)
-    // {
-    //     using (FileStream fs1 = new FileStream(path1, FileMode.Open),
-    //           fs2 = new FileStream(path2, FileMode.Open))
-    //     {
-    //         int c1 = 0;
-    //         int c2 = 0;
-    //         do
-    //         {
-    //             c1 = fs1.ReadByte();
-    //             c2 = fs2.ReadByte();
-    //         }
-    //         while (c1 == c2 && c1 != -1 && c2 != -1);
-    //         return c1 == c2;
-    //     }
-    // }
 }
 
