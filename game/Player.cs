@@ -7,7 +7,6 @@ namespace game
         private Cell _currentPosition;
         int _moves;
         int _livesRemaining;
-        bool _playerWins;
         bool _gameOver;
         const string columns = "abcdefgh"; // list of column names to find by IndexOf
         Mines _board;
