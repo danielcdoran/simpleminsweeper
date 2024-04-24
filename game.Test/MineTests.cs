@@ -8,13 +8,19 @@ namespace game.Test
 // This could be a "flakey" tet because it uses a random function;
         [Fact]
         public void GivenMinesFillFactor_thenProduceBoardWithMines()
-      
         {
             Mines initial = new Mines(0.9, 2);
             string output = initial.toString();
             int size = output.Length;
             Assert.True(initial.minesInBoard > 2);
         }
+
+        [Fact]
+        public void givenMinesFillFactorGT1_thenProduceInvalidBoardFillFactorException()
+        {
+            Assert.Throws<InvalidBoardFillFactor>(()=> new Mines(1.0,2));
+        }
+
 
         [Fact]
         public void GivenMineList_thenProduceMines()
@@ -57,7 +63,6 @@ namespace game.Test
             var player = new Player( mines);
             player = player.setStartPosition('h');
             var movedPlayer = player.Up();
-            // Assert.Equal(expected, player.getCurrentPosition());
             Assert.Equal(expected.i, player.getCurrentPosition().i);
             Assert.Equal(expected.j, player.getCurrentPosition().j);
         }

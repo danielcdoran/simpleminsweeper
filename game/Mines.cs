@@ -17,18 +17,20 @@ namespace game
         private double _mineFactor;
 
 
-
-        public Mines(double mineFactor, int maxMinesAllowedToHit
-        )
+    // This constructor randomly creates mines. It must at least maxLivesAllowed mines otherwise the playerwill 
+    // always win (there are not enough mines to cause a loss)
+    // Mines are randomly created but the probability must be greater than 0.0 and less than 1.0.
+    // The lower limit is 0.01 but there is no reason for this. It just needs to be a small probability
+        public Mines(double mineFactor, int maxLivesAllowed)
         {
             if (mineFactor < 0.01) { throw new InvalidBoardFillFactor(mineFactor); } // if fillFactor is 0 mines will never be created
             if (mineFactor >= 1.0) { throw new InvalidBoardFillFactor(mineFactor); }
 
-            if (maxMinesAllowedToHit < 1) { throw new InvalidMineCount(maxMinesAllowedToHit); }
-            if (maxMinesAllowedToHit > 64) { throw new InvalidMineCount(maxMinesAllowedToHit); } // can't be bigger than number of squares on board
+            if (maxLivesAllowed < 1) { throw new InvalidMineCount(maxLivesAllowed); }
+            if (maxLivesAllowed > 64) { throw new InvalidMineCount(maxLivesAllowed); } // can't be bigger than number of squares on board
 
             initialise();
-            _maxMinesAllowed = maxMinesAllowedToHit;
+            _maxMinesAllowed = maxLivesAllowed;
             _mineFactor = mineFactor;
             makeBoardWithMines();
         }

@@ -8,7 +8,7 @@ namespace game
         public InvalidBoardFillFactor() { }
 
         public InvalidBoardFillFactor(double fillFactor)
-            : base(String.Format("Invalid Fill factor either less than zero or greater than 1.0 {0}", fillFactor))
+            : base(String.Format("Invalid Fill factor either less than 0.01 or greater than 1.0 {0}", fillFactor))
         {
 
         }
