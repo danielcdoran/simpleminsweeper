@@ -46,7 +46,7 @@ namespace game.Test
         }
 
 
-                [Fact]
+        [Fact]
         public void given_PointsOutsideBoard_then_ContinueGame()
         {
             string outputFilename = "given_PointsOutsideBoard_then_ContinueGames.txt";
@@ -61,6 +61,23 @@ namespace game.Test
             String expectedString = readIntoString(expectedDirectory, outputFilename);
             Assert.Equal(expectedString, actualString);
         }
+
+                [Fact]
+        public void given_StartIsAMIne_then_ReduceLives()
+        {
+            string outputFilename = "given_StartIsAMIne_then_ReduceLives.txt";
+            Cell[] mineCells = new Cell[3] { new Cell(2, 0), new Cell(4, 2), new Cell(4, 6) };
+            var mines = new Mines(mineCells, mineCount);
+            var game = new Game(mines);
+            var player = new Player(mines);
+            player = player.setStartPosition('a');
+            string actualOutput = game.runCommands("cUU", mines);
+            createTestfile(actualDirectory, outputFilename, actualOutput);
+            String actualString = readIntoString(actualDirectory, outputFilename);
+            String expectedString = readIntoString(expectedDirectory, outputFilename);
+            Assert.Equal(expectedString, actualString);
+        }
+
         static string getTestOutputDir(string testDir)
         {
             string pathToBinDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;

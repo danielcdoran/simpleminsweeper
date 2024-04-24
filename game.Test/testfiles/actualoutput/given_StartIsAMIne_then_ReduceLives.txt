@@ -1,0 +1,4 @@
+Position c1 lives remaining 1 moves taken 0
+Position c2 lives remaining 1 moves taken 1
+Position c3 lives remaining 1 moves taken 2
+Game is still going
