@@ -23,6 +23,13 @@ namespace game.Test
             Assert.Throws<InvalidBoardFillFactor>(() => new Mines(fillFactor, 2));
         }
 
+        [Theory]
+        [InlineData(0)]
+        [InlineData(65)]
+        public void givenInvalidMineCount_thenProduceInvalidMineCountException(int mineCount)
+        {
+            Assert.Throws<InvalidMineCount>(() => new Mines(0.5, mineCount));
+        }
 
         [Fact]
         public void GivenMineList_thenProduceMines()

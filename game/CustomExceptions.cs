@@ -25,7 +25,7 @@ namespace game
     public class InvalidMineCount : Exception
     {
         public InvalidMineCount(int mineCount)
-            : base(String.Format("Invalid mine count - must be > 0 and < 64. It is {}", mineCount))
+            : base(String.Format("Invalid mine count - must be > 0 and < 64. It is {0}", mineCount))
         {
         }
     }
