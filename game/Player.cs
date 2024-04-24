@@ -84,6 +84,14 @@ namespace game
         {
             return _board.gameOverPlayerWins(position);
         }
+
+  // 1 - Game won - no lives remianing
+// 2 - Player won. Reached row 8
+// 3 - Game not finished yet
+        public int gameStatus()
+        {
+            return _board.gameStatus(_currentPosition);
+        }
         public string playerStatus()
         {
             return _currentPosition.position() + " lives remaining " + _livesRemaining + " moves taken " + _moves;
@@ -110,15 +118,6 @@ namespace game
             };
         }
 
-        public Player runCommands(Player player, char[] commands)
-        {
-            foreach (char command in commands)
-            {
-                player = player.runCommand(command);
-                Console.WriteLine(player.playerStatus());
-            }
-            return player;
-        }
 
         public Player setStartPosition(Char initialColumn)
         {

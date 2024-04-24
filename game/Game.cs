@@ -55,7 +55,33 @@ namespace game
                 gameEnded = player.GameOver;
             } while (!gameEnded);
         }
+        public void gameStatus(Player player){
+                        int status = player.gameStatus();
+                        switch (status) {
+                            case 1:
+                            Console.WriteLine("Player lost");
+                            break;
+                            case 2:
+                            Console.WriteLine("Player won");
+                            break;
+                            case 3:
+                            Console.WriteLine("Game is still going");
+                            break;
+                            default:
+                            Console.WriteLine("Error in reporting game staatus");
+                            break;
+                        }
+        }
 
+        public Player runCommands(Player player, char[] commands)
+        {
+            foreach (char command in commands)
+            {
+                player = player.runCommand(command);
+                Console.WriteLine(player.playerStatus());
+            }
+            return player;
+        }
         public string runCommands(string commandString, Mines mines)
         {
             _mines = mines;
@@ -67,9 +93,11 @@ namespace game
             {
                 Console.SetOut(stringWriter);
                 Console.WriteLine(player.playerStatus());
-                player.runCommands(player, commands[1..]);
+                player =runCommands(player, commands[1..]);
+                gameStatus(player);
                 allConsoleOutput = stringWriter.ToString();
             }
+
             return allConsoleOutput;
         }
     }

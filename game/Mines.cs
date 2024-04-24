@@ -85,8 +85,6 @@ namespace game
             } while (!enoughMines);
         }
 
-
-
         private bool noLivesRemaining()
         {
             return (_maxMinesAllowed - _numberMinesHit <= 0);
@@ -211,6 +209,11 @@ namespace game
             bool gameOver = gameTerminates(movedCell);
             return new Player(this, movedCell, moves, gameOver);
         }
+        public bool gameTerminates(Cell position){
+            if (_maxMinesAllowed == _numberMinesHit) return true ;
+            if (position.j == boardSize -1) return true;
+            return false ;
+        }
 
         public Player Down(Player playerBeforeMove)
         {
@@ -232,12 +235,14 @@ namespace game
             var movedCell = cell.Left();
             return updatePlayer(playerBeforeMove, movedCell);
         }
-
-        private bool gameTerminates(Cell movedCell)
+// 1 - Player lost - no lives remaining
+// 2 - Player won. Reached row 8
+// 3 - Game not finished yet
+        public int gameStatus(Cell movedCell)
         {
-            if (noLivesRemaining()) return true;
-            if (movedCell.j == boardSize - 1) { return true; }
-            return false;
+            if (noLivesRemaining()) return 1;
+            if (movedCell.j == boardSize - 1) { return 2; }
+            return 3;
         }
         public bool gameOverPlayerWins(Cell position)
         {
