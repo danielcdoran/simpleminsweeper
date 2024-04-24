@@ -1,0 +1,12 @@
+Position c1 lives remaining 1 moves taken 0
+Position c2 lives remaining 1 moves taken 1
+Position c3 lives remaining 1 moves taken 2
+Position c4 lives remaining 1 moves taken 3
+Position c5 lives remaining 1 moves taken 4
+Position c6 lives remaining 1 moves taken 5
+Position c7 lives remaining 1 moves taken 6
+Position c8 lives remaining 0 moves taken 7
+Position c8 lives remaining 0 moves taken 7
+Position c8 lives remaining 0 moves taken 7
+Position c8 lives remaining 0 moves taken 7
+Player lost

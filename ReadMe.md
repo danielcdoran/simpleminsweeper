@@ -1,6 +1,4 @@
-https://mail.google.com/mail/u/0/#label/ActionRequired/FMfcgzGxSlKshjLJXkQWPQKVjcLkXxGc?projector=1&messagePartId=0.1
-
-dotnet add package Microsoft.EntityFrameworkCore
-dotnet add package xunit
-
-https://github.com/dotnet/dotnet-docker/blob/main/samples/dotnetapp/Dockerfile
+A game my end in 3 ways
+1. Player wins ie. they have a series of moves to reach row 8
+2. Player looses - player hss hit all the mines
+3. Player neither wins or looses - game is abandoned
