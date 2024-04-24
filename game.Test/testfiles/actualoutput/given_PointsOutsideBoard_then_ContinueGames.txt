@@ -1,0 +1,24 @@
+Position d1 lives remaining 2 moves taken 0
+Position d2 lives remaining 2 moves taken 1
+Position d1 lives remaining 2 moves taken 2
+Position d1 lives remaining 2 moves taken 3
+Position d2 lives remaining 2 moves taken 4
+Position d3 lives remaining 2 moves taken 5
+Position d4 lives remaining 2 moves taken 6
+Position d5 lives remaining 2 moves taken 7
+Position d6 lives remaining 2 moves taken 8
+Position e6 lives remaining 2 moves taken 9
+Position f6 lives remaining 2 moves taken 10
+Position g6 lives remaining 2 moves taken 11
+Position h6 lives remaining 2 moves taken 12
+Position h6 lives remaining 2 moves taken 13
+Position h6 lives remaining 2 moves taken 14
+Position g6 lives remaining 2 moves taken 15
+Position f6 lives remaining 2 moves taken 16
+Position e6 lives remaining 2 moves taken 17
+Position d6 lives remaining 2 moves taken 18
+Position c6 lives remaining 2 moves taken 19
+Position b6 lives remaining 2 moves taken 20
+Position a6 lives remaining 2 moves taken 21
+Position a6 lives remaining 2 moves taken 22
+Game is still going
