@@ -13,9 +13,9 @@ namespace game
 
         // Player start on columns a to h
         // Start on row 0 and must go to row 7 to win
-                public Player(Mines mines)
+        public Player(Mines mines)
         {
-_board = mines;
+            _board = mines;
         }
         // public Player(char initialColumn, Mines mines)
         // {
@@ -109,10 +109,16 @@ _board = mines;
                     return this;
             };
         }
-        // public Player runGame(string sequenceOfMoves){
 
-        //     return Player;
-        // }
+        public Player runCommands(Player player, char[] commands)
+        {
+            foreach (char command in commands)
+            {
+                player = player.runCommand(command);
+                Console.WriteLine(player.playerStatus());
+            }
+            return player;
+        }
 
         public Player setStartPosition(Char initialColumn)
         {

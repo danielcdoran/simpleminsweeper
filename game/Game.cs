@@ -1,3 +1,5 @@
+using System.Security.Cryptography.X509Certificates;
+
 namespace game
 {
 
@@ -52,7 +54,23 @@ namespace game
                 Console.WriteLine(output);
                 gameEnded = player.GameOver;
             } while (!gameEnded);
+        }
 
+        public string runCommands(string commandString, Mines mines)
+        {
+            _mines = mines;
+            char[] commands = commandString.ToCharArray();
+            var player = new Player(_mines);
+            player = player.setStartPosition(commands[0]);
+            string allConsoleOutput;
+            using (StringWriter stringWriter = new StringWriter())
+            {
+                Console.SetOut(stringWriter);
+                Console.WriteLine(player.playerStatus());
+                player.runCommands(player, commands[1..]);
+                allConsoleOutput = stringWriter.ToString();
+            }
+            return allConsoleOutput;
         }
     }
 }

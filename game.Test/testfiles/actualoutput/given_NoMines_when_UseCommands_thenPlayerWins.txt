@@ -1,0 +1,12 @@
+Position c1 lives remaining 2 moves taken 0
+Position c2 lives remaining 2 moves taken 1
+Position c3 lives remaining 2 moves taken 2
+Position d3 lives remaining 2 moves taken 3
+Position d4 lives remaining 2 moves taken 4
+Position c4 lives remaining 2 moves taken 5
+Position c5 lives remaining 2 moves taken 6
+Position c4 lives remaining 2 moves taken 7
+Position c5 lives remaining 2 moves taken 8
+Position c6 lives remaining 2 moves taken 9
+Position c7 lives remaining 2 moves taken 10
+Position c8 lives remaining 2 moves taken 11

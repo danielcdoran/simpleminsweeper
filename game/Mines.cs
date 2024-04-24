@@ -31,9 +31,28 @@ namespace game
             _maxMinesAllowed = maxMinesAllowedToHit;
             _mineFactor = mineFactor;
             makeBoardWithMines();
-
-
         }
+        public Mines(Cell[] cellsSetAsMine, int mineCount)
+        {
+            initialise();
+            _maxMinesAllowed = mineCount;
+            setMinesFromArray(cellsSetAsMine);
+        }
+        void setMinesFromArray(Cell[] cellsSetAsMine)
+        {
+            foreach (Cell cell in cellsSetAsMine)
+            {
+                setCellAsMine(cell);
+            }
+        }
+
+        // This creates a board with 0 (zero) mines in it
+        public Mines(int mineCount)
+        {
+            initialise();
+            _maxMinesAllowed = mineCount;
+        }
+
         private void initialise()
         {
             _board = new bool[boardSize, boardSize]; // each cell initialised as false
@@ -66,15 +85,7 @@ namespace game
             } while (!enoughMines);
         }
 
-        public Mines(Cell[] cellsSetAsMine, int mineCount)
-        {
-            initialise();
-            _maxMinesAllowed = mineCount;
-            foreach (Cell cell in cellsSetAsMine)
-            {
-                setCellAsMine(cell);
-            }
-        }
+
 
         private bool noLivesRemaining()
         {
@@ -132,7 +143,8 @@ namespace game
         {
             get { return _numberMinesHit; }
         }
-        public void addMineHit() {
+        public void addMineHit()
+        {
             _numberMinesHit++;
         }
         public int livesRemaining()
@@ -223,7 +235,7 @@ namespace game
 
         private bool gameTerminates(Cell movedCell)
         {
-            if  ( noLivesRemaining() ) return true; 
+            if (noLivesRemaining()) return true;
             if (movedCell.j == boardSize - 1) { return true; }
             return false;
         }
