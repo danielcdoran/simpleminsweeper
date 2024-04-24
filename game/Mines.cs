@@ -10,7 +10,7 @@ namespace game
     public class Mines
     {
         const int boardSize = 8;
-        bool[,] _board;
+        bool[,]? _board;
         private int _numberMinesHit;
         private int _maxMinesAllowed;
         private int _minesInBoard;
@@ -85,7 +85,7 @@ namespace game
             var i = cell.i;
             var j = cell.j;
             if (!cell.isInRange()) return false;
-            return _board[cell.i, cell.j];
+            return _board[i, j];
         }
 
 

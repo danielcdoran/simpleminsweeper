@@ -18,6 +18,7 @@ namespace game
             bool correct = true;
             //     int i, j;
             char startColumn = 'z';
+                        var player = new Player(mines);
             do
             {
                 Console.WriteLine("Set column (a-h) on bottom row to start");
@@ -30,10 +31,10 @@ namespace game
                 }
                 if (!correct) Console.WriteLine("TRy again. This column is not allowed");
             } while (!correct);
-
+            player.setStartPosition(startColumn);
             correct = false;
             Char command = ' ';
-            var player = new Player(startColumn, mines);
+
             do
             {
                 do

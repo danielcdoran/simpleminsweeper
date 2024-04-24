@@ -32,7 +32,8 @@ namespace game.Test
             const int mineCount = 2;
             var mines = new Mines(mineFillFactor, mineCount);
             var expected = mines.getCell(0, 0);
-            var player = new Player('a', mines);
+            var player = new Player( mines);
+            player = player.setStartPosition('a');
             Assert.Equal(expected, player.getCurrentPosition());
         }
         [Fact]
@@ -42,7 +43,8 @@ namespace game.Test
             const int mineCount = 2;
             var mines = new Mines(mineFillFactor, mineCount);
             var expected = mines.getCell(7,0);
-            var player = new Player('h', mines);
+            var player = new Player( mines);
+            player = player.setStartPosition('h');
             Assert.Equal(expected, player.getCurrentPosition());
         }
         [Fact]
@@ -52,7 +54,8 @@ namespace game.Test
             Cell[] mineCells = new Cell[3] { new Cell(0, 0), new Cell(1, 2), new Cell(2, 3) };
             var mines = new Mines(mineCells, mineCount);
             var expected = mines.getCell(7, 0);
-            var player = new Player('h', mines);
+            var player = new Player( mines);
+            player = player.setStartPosition('h');
             var movedPlayer = player.Up();
             // Assert.Equal(expected, player.getCurrentPosition());
             Assert.Equal(expected.i, player.getCurrentPosition().i);

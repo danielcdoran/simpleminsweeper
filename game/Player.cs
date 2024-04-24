@@ -13,22 +13,26 @@ namespace game
 
         // Player start on columns a to h
         // Start on row 0 and must go to row 7 to win
-        public Player(char initialColumn, Mines mines)
+                public Player(Mines mines)
         {
-            //   CultureInfo[] cultures= { CultureInfo.CreateSpecificCulture("en-US"),
-            //                 CultureInfo.InvariantCulture,
-            //                 CultureInfo.CreateSpecificCulture("tr-TR") };           
-            char lower = Char.ToLower(initialColumn);
-            int i = columns.IndexOf(lower);
-            if (i < 0) { { throw new InvalidColumn(initialColumn); } }
-            _board = mines;
-            _currentPosition = new Cell(i, 0);
-            if (_board.isMineCell(_currentPosition))
-            {
-                _board.addMineHit();
-            }
-            _livesRemaining = mines.livesRemaining();
+_board = mines;
         }
+        // public Player(char initialColumn, Mines mines)
+        // {
+        //     //   CultureInfo[] cultures= { CultureInfo.CreateSpecificCulture("en-US"),
+        //     //                 CultureInfo.InvariantCulture,
+        //     //                 CultureInfo.CreateSpecificCulture("tr-TR") };           
+        //     char lower = Char.ToLower(initialColumn);
+        //     int i = columns.IndexOf(lower);
+        //     if (i < 0) { { throw new InvalidColumn(initialColumn); } }
+        //     _board = mines;
+        //     _currentPosition = new Cell(i, 0);
+        //     if (_board.isMineCell(_currentPosition))
+        //     {
+        //         _board.addMineHit();
+        //     }
+        //     _livesRemaining = mines.livesRemaining();
+        // }
         public Player(Mines mines, Cell position, int moves, bool gameOver)
         {
             _board = mines;
@@ -105,6 +109,27 @@ namespace game
                     return this;
             };
         }
+        // public Player runGame(string sequenceOfMoves){
+
+        //     return Player;
+        // }
+
+        public Player setStartPosition(Char initialColumn)
+        {
+            //   CultureInfo[] cultures= { CultureInfo.CreateSpecificCulture("en-US"),
+            //                 CultureInfo.InvariantCulture,
+            //                 CultureInfo.CreateSpecificCulture("tr-TR") };           
+            char lower = Char.ToLower(initialColumn);
+            int i = columns.IndexOf(lower);
+            if (i < 0) { { throw new InvalidColumn(initialColumn); } }
+            _currentPosition = new Cell(i, 0);
+            if (_board.isMineCell(_currentPosition))
+            {
+                _board.addMineHit();
+            }
+            _livesRemaining = _board.livesRemaining();
+            return this;
+        }
 
         public override bool Equals(object? obj)
         {
@@ -119,8 +144,9 @@ namespace game
             if (_board != other._board) return false;
             return true;
         }
-        public override int GetHashCode(){
-            return (_moves,_livesRemaining,_board).GetHashCode();
+        public override int GetHashCode()
+        {
+            return (_moves, _livesRemaining, _board).GetHashCode();
         }
 
     }
