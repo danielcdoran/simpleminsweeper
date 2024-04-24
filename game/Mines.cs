@@ -12,7 +12,7 @@ namespace game
         const int boardSize = 8;
         bool[,]? _board;
         private int _numberMinesHit;
-        private int _maxMinesAllowed;
+        private int _maxLivesAllowed;
         private int _minesInBoard;
         private double _mineFactor;
 
@@ -30,14 +30,14 @@ namespace game
             if (maxLivesAllowed > 64) { throw new InvalidMineCount(maxLivesAllowed); } // can't be bigger than number of squares on board
 
             initialise();
-            _maxMinesAllowed = maxLivesAllowed;
+            _maxLivesAllowed = maxLivesAllowed;
             _mineFactor = mineFactor;
             makeBoardWithMines();
         }
         public Mines(Cell[] cellsSetAsMine, int mineCount)
         {
             initialise();
-            _maxMinesAllowed = mineCount;
+            _maxLivesAllowed = mineCount;
             setMinesFromArray(cellsSetAsMine);
         }
         void setMinesFromArray(Cell[] cellsSetAsMine)
@@ -52,7 +52,7 @@ namespace game
         public Mines(int mineCount)
         {
             initialise();
-            _maxMinesAllowed = mineCount;
+            _maxLivesAllowed = mineCount;
         }
 
         private void initialise()
@@ -83,13 +83,13 @@ namespace game
                         }
                     }
                 }
-                enoughMines = (_minesInBoard >= _maxMinesAllowed);
+                enoughMines = (_minesInBoard >= _maxLivesAllowed);
             } while (!enoughMines);
         }
 
         private bool noLivesRemaining()
         {
-            return (_maxMinesAllowed - _numberMinesHit <= 0);
+            return (_maxLivesAllowed - _numberMinesHit <= 0);
         }
         public bool isMineCell(Cell cell)
         {
@@ -149,15 +149,15 @@ namespace game
         }
         public int livesRemaining()
         {
-            return _maxMinesAllowed - _numberMinesHit;
+            return _maxLivesAllowed - _numberMinesHit;
         }
         public int minesInBoard
         {
             get => _minesInBoard;
         }
-        public int MaxMinesAllowed
+        public int MaxLivesAllowed
         {
-            get => _maxMinesAllowed;
+            get => _maxLivesAllowed;
         }
         public bool isInRange(int row, int column)
         {
@@ -212,7 +212,7 @@ namespace game
             return new Player(this, movedCell, moves, gameOver);
         }
         public bool gameTerminates(Cell position){
-            if (_maxMinesAllowed == _numberMinesHit) return true ;
+            if (_maxLivesAllowed == _numberMinesHit) return true ;
             if (position.j == boardSize -1) return true;
             return false ;
         }

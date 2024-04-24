@@ -4,7 +4,7 @@ namespace game
 {
     public class Player
     {
-        private Cell _currentPosition;
+        private Cell? _currentPosition;
         int _moves;
         int _livesRemaining;
         bool _gameOver;
@@ -17,22 +17,7 @@ namespace game
         {
             _board = mines;
         }
-        // public Player(char initialColumn, Mines mines)
-        // {
-        //     //   CultureInfo[] cultures= { CultureInfo.CreateSpecificCulture("en-US"),
-        //     //                 CultureInfo.InvariantCulture,
-        //     //                 CultureInfo.CreateSpecificCulture("tr-TR") };           
-        //     char lower = Char.ToLower(initialColumn);
-        //     int i = columns.IndexOf(lower);
-        //     if (i < 0) { { throw new InvalidColumn(initialColumn); } }
-        //     _board = mines;
-        //     _currentPosition = new Cell(i, 0);
-        //     if (_board.isMineCell(_currentPosition))
-        //     {
-        //         _board.addMineHit();
-        //     }
-        //     _livesRemaining = mines.livesRemaining();
-        // }
+
         public Player(Mines mines, Cell position, int moves, bool gameOver)
         {
             _board = mines;

@@ -39,6 +39,12 @@ namespace game.Test
             Mines initial = new Mines(mineCells, 2);
             Assert.Equal(expectedMineCount, initial.minesInBoard);
         }
+        [Fact]
+        public void givenLowFillFactorAndLargeMineCount_thenEnsureRandomFunctionProduceMines()
+        {
+            Mines initial = new Mines(0.02, 22);
+            Assert.True(initial.minesInBoard >= 22);
+        }
 
         [Fact]
         public void given_ValidColumn_a_then_InitaliseCell()
