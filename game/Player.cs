@@ -69,9 +69,9 @@ namespace game
             return _board.Left(this);
         }
 
-        public Cell getCurrentPosition()
+        public Cell CurrentPosition
         {
-            return _currentPosition;
+            get => _currentPosition;
         }
         public bool gameOverPlayerWins(Cell position)
         {

@@ -142,7 +142,7 @@ namespace game.Test
             var expected = mines.getCell(0, 0);
             var player = new Player(mines);
             player = player.setStartPosition('a');
-            Assert.Equal(expected, player.getCurrentPosition());
+            Assert.Equal(expected, player.CurrentPosition);
         }
         [Fact]
         public void given_ValidColumn_h_then_InitaliseCell()
@@ -153,7 +153,7 @@ namespace game.Test
             var expected = mines.getCell(7, 0);
             var player = new Player(mines);
             player = player.setStartPosition('h');
-            Assert.Equal(expected, player.getCurrentPosition());
+            Assert.Equal(expected, player.CurrentPosition);
         }
         [Fact]
         public void given_UpCommandNoMine_then_moveRegistered()
@@ -165,8 +165,8 @@ namespace game.Test
             var player = new Player(mines);
             player = player.setStartPosition('h');
             var movedPlayer = player.Up();
-            Assert.Equal(expected.i, player.getCurrentPosition().i);
-            Assert.Equal(expected.j, player.getCurrentPosition().j);
+            Assert.Equal(expected.i, player.CurrentPosition.i);
+            Assert.Equal(expected.j, player.CurrentPosition.j);
         }
 
 
@@ -179,9 +179,9 @@ namespace game.Test
             var player = new Player(mines, new Cell(1, 1), 1, false);
             var movedPlayer = player.Up();
             var expected = new Player(mines, new Cell(1, 2), 2, false);
-            // Assert.Equal(expected, player.getCurrentPosition());
+            // Assert.Equal(expected, player.CurrentPosition);
             Assert.Equal(expected, movedPlayer);
-            // Assert.Equal(expected, player.getCurrentPosition().j);
+            // Assert.Equal(expected, player.CurrentPosition.j);
         }
         [Fact]
         public void given_UpCommandOntoMine_then_GameEndWithZeroLives()
@@ -192,9 +192,9 @@ namespace game.Test
             var player = new Player(mines, new Cell(1, 1), 1, false);
             var movedPlayer = player.Up();
             var expected = new Player(mines, new Cell(1, 2), 2, false);
-            // Assert.Equal(expected, player.getCurrentPosition());
+            // Assert.Equal(expected, player.CurrentPosition);
             Assert.Equal(expected, movedPlayer);
-            // Assert.Equal(expected, player.getCurrentPosition().j);
+            // Assert.Equal(expected, player.CurrentPosition.j);
         }
         [Fact]
         public void given_UpCommandOntoLastLine_then_GameEndPlayerWins()
@@ -205,9 +205,9 @@ namespace game.Test
             var player = new Player(mines, new Cell(1, 6), 1, false);
             var movedPlayer = player.Up();
             var expected = new Player(mines, new Cell(1, 7), 2, true);
-            // Assert.Equal(expected, player.getCurrentPosition());
+            // Assert.Equal(expected, player.CurrentPosition);
             Assert.Equal(expected, movedPlayer);
-            // Assert.Equal(expected, player.getCurrentPosition().j);
+            // Assert.Equal(expected, player.CurrentPosition.j);
         }
 
         [Fact]

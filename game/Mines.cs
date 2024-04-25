@@ -93,7 +93,7 @@ namespace game
         {
             return (_maxLivesAllowed - _numberMinesHit <= 0);
         }
-        private bool isMineCell(Cell cell)
+        public bool isMineCell(Cell cell)
         {
             var i = cell.i;
             var j = cell.j;
@@ -175,12 +175,12 @@ namespace game
         private Player notValidMoveIncrementMoves(Player player)
         {
             int moves = player.Moves + 1;
-            return new Player(this, player.getCurrentPosition(), moves, false);
+            return new Player(this, player.CurrentPosition, moves, false);
         }
 
         public Player Up(Player playerBeforeMove)
         {
-            var cell = playerBeforeMove.getCurrentPosition();
+            var cell = playerBeforeMove.CurrentPosition;
             var movedCell = cell.Up();
             return updatePlayer(playerBeforeMove, movedCell);
         }
@@ -207,21 +207,21 @@ namespace game
 
         public Player Down(Player playerBeforeMove)
         {
-            var cell = playerBeforeMove.getCurrentPosition();
+            var cell = playerBeforeMove.CurrentPosition;
             var movedCell = cell.Down();
             return updatePlayer(playerBeforeMove, movedCell);
         }
 
         public Player Right(Player playerBeforeMove)
         {
-            var cell = playerBeforeMove.getCurrentPosition();
+            var cell = playerBeforeMove.CurrentPosition;
             var movedCell = cell.Right();
             return updatePlayer(playerBeforeMove, movedCell);
         }
 
         public Player Left(Player playerBeforeMove)
         {
-            var cell = playerBeforeMove.getCurrentPosition();
+            var cell = playerBeforeMove.CurrentPosition;
             var movedCell = cell.Left();
             return updatePlayer(playerBeforeMove, movedCell);
         }
