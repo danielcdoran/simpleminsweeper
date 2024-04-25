@@ -30,9 +30,9 @@ namespace game.Test
         }
 
         [Fact]
-        public void given_2Mines_when_HitsBoth_thenPlayerLosses()
+        public void given_2Mines_when_HitsBoth_thenPlayerLoses()
         {
-            string outputFilename = "given_2Mines_when_HitsBoth_thenPlayerLosses.txt";
+            string outputFilename = "given_2Mines_when_HitsBoth_thenPlayerLoses.txt";
             Cell[] mineCells = new Cell[3] { new Cell(2, 2), new Cell(4, 2), new Cell(4, 6) };
             var mines = new Mines(mineCells, mineCount);
             var game = new Game(mines);
@@ -80,9 +80,9 @@ namespace game.Test
 
 
                         [Fact]
-        public void given_MineIsOnEndRow_then_PlayerLooses()
+        public void given_MineIsOnEndRow_then_PlayerLoses()
         {
-            string outputFilename = "given_MineIsOnEndRow_then_PlayerLooses.txt";
+            string outputFilename = "given_MineIsOnEndRow_then_PlayerLoses.txt";
             Cell[] mineCells = new Cell[3] { new Cell(2, 0), new Cell(4, 2), new Cell(2, 7) };
             var mines = new Mines(mineCells, mineCount);
             var game = new Game(mines);

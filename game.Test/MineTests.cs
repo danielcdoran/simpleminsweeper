@@ -48,6 +48,25 @@ namespace game.Test
         }
 
         [Fact]
+        public void given_Board_when_PlayerOn_8th_row_then_PlayerWins()
+        {
+            Mines mines = new Mines(2);
+            var expected = new Player(mines, new Cell(3, 7), 1, true);
+            var player = new Player(mines, new Cell(3, 6));
+            player = player.Up();
+            Assert.Equal(expected, player);
+        }
+
+                [Fact]
+        public void given_Board_when_PlayerHitsAllMines_then_PlayerLoses()
+        {
+            Mines mines = new Mines(2);
+            var expected = new Player(mines, new Cell(3, 7), 1, true);
+            var player = new Player(mines, new Cell(3, 6));
+            player = player.Up();
+            Assert.Equal(expected, player);
+        }
+        [Fact]
         public void given_Board_when_UpMove_then_PositionChanges()
         {
             Mines mines = new Mines(2);
