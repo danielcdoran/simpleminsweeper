@@ -5,6 +5,7 @@ namespace game.Test
 
     public class MineTests
     {
+        Cell[] singleMineCells = new Cell[1] { new Cell(4, 4) };
         // This could be a "flakey" tet because it uses a random function;
         [Fact]
         public void GivenMinesFillFactor_thenProduceBoardWithMines()
@@ -44,6 +45,73 @@ namespace game.Test
         {
             Mines initial = new Mines(0.02, 22);
             Assert.True(initial.minesInBoard >= 22);
+        }
+
+        [Fact]
+        public void given_Board_when_UpMove_then_PositionChanges()
+        {
+            Mines mines = new Mines(2);
+            var expected = new Player(mines, new Cell(3, 1), 1, false);
+            var player = new Player(mines, new Cell(3, 0));
+            player = player.Up();
+            Assert.Equal(expected, player);
+        }
+
+        [Fact]
+        public void given_Board_when_DownMove_then_PositionChanges()
+        {
+            Mines mines = new Mines(2);
+            var expected = new Player(mines, new Cell(3, 3), 1, false);
+            var player = new Player(mines, new Cell(3, 4));
+            player = player.Down();
+            Assert.Equal(expected, player);
+        }
+        [Fact]
+        public void given_Board_when_InvalidDownMove_then_PositionDoesNotChange()
+        {
+            Mines mines = new Mines(2);
+            var expected = new Player(mines, new Cell(3, 0), 1, false); // moves increases by 1
+            var player = new Player(mines, new Cell(3, 0));
+            player = player.Down();
+            Assert.Equal(expected, player);
+        }
+
+        [Fact]
+        public void given_Board_when_RightMove_then_PositionChanges()
+        {
+            Mines mines = new Mines(2);
+            var expected = new Player(mines, new Cell(3, 3), 1, false);
+            var player = new Player(mines, new Cell(4, 4));
+            player = player.Right();
+            Assert.Equal(expected, player);
+        }
+        [Fact]
+        public void given_Board_when_InvalidRightMove_then_PositionDoesNotChange()
+        {
+            Mines mines = new Mines(2);
+            var expected = new Player(mines, new Cell(7, 1), 1, false); // moves increases by 1
+            var player = new Player(mines, new Cell(7, 1));
+            player = player.Right();
+            Assert.Equal(expected, player);
+        }
+
+                [Fact]
+        public void given_Board_when_LefttMove_then_PositionChanges()
+        {
+            Mines mines = new Mines(2);
+            var expected = new Player(mines, new Cell(3, 3), 1, false);
+            var player = new Player(mines, new Cell(3, 2));
+            player = player.Left();
+            Assert.Equal(expected, player);
+        }
+        [Fact]
+        public void given_Board_when_InvalidLeftMove_then_PositionDoesNotChange()
+        {
+            Mines mines = new Mines(2);
+            var expected = new Player(mines, new Cell(0, 1), 1, false); // moves increases by 1
+            var player = new Player(mines, new Cell(0, 1));
+            player = player.Left();
+            Assert.Equal(expected, player);
         }
 
         [Fact]

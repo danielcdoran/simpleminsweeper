@@ -17,6 +17,14 @@ namespace game
         {
             _board = mines;
         }
+        public Player(Mines mines,Cell position){
+
+                       _board = mines;
+            _currentPosition = position;
+            _moves = 0;
+            _livesRemaining = mines.livesRemaining();
+            _gameOver = false;
+        }
 
         public Player(Mines mines, Cell position, int moves, bool gameOver)
         {

@@ -10,6 +10,7 @@ namespace game
     public class Mines
     {
         const int boardSize = 8;
+        const int maxIndex = boardSize - 1;
         bool[,]? _board;
         private int _numberMinesHit;
         private int _maxLivesAllowed;
@@ -17,10 +18,11 @@ namespace game
         private double _mineFactor;
 
 
-    // This constructor randomly creates mines. It must at least maxLivesAllowed mines otherwise the playerwill 
-    // always win (there are not enough mines to cause a loss)
-    // Mines are randomly created but the probability must be greater than 0.0 and less than 1.0.
-    // The lower limit is 0.01 but there is no reason for this. It just needs to be a small probability
+        // This constructor randomly creates mines. It must at least maxLivesAllowed mines otherwise the playerwill 
+        // always win (there are not enough mines to cause a loss)
+        // Mines are randomly created but the probability must be greater than 0.0 and less than 1.0.
+        // The lower limit is 0.01 but there is no reason for this. It just needs to be a small probability
+
         public Mines(double mineFactor, int maxLivesAllowed)
         {
             if (mineFactor < 0.01) { throw new InvalidBoardFillFactor(mineFactor); } // if fillFactor is 0 mines will never be created
@@ -153,9 +155,9 @@ namespace game
         public bool isInRange(int row, int column)
         {
             if (row < 0) { return false; }
-            if (row > 7) { return false; }
+            if (row > maxIndex) { return false; }
             if (column < 0) { return false; }
-            if (column > 7) { return false; }
+            if (column > maxIndex) { return false; }
             return true;
         }
 
@@ -164,9 +166,9 @@ namespace game
             int row = cell.i;
             int column = cell.j;
             if (row < 0) { return false; }
-            if (row > 7) { return false; }
+            if (row > maxIndex) { return false; }
             if (column < 0) { return false; }
-            if (column > 7) { return false; }
+            if (column > maxIndex) { return false; }
             return true;
         }
         // if out of range Cell reurns (0,0) pooint as default
@@ -202,10 +204,11 @@ namespace game
             bool gameOver = gameTerminates(movedCell);
             return new Player(this, movedCell, moves, gameOver);
         }
-        public bool gameTerminates(Cell position){
-            if (_maxLivesAllowed == _numberMinesHit) return true ;
-            if (position.j == boardSize -1) return true;
-            return false ;
+        public bool gameTerminates(Cell position)
+        {
+            if (_maxLivesAllowed == _numberMinesHit) return true;
+            if (position.j == boardSize - 1) return true;
+            return false;
         }
 
         public Player Down(Player playerBeforeMove)
@@ -228,9 +231,9 @@ namespace game
             var movedCell = cell.Left();
             return updatePlayer(playerBeforeMove, movedCell);
         }
-// 1 - Player lost - no lives remaining
-// 2 - Player won. Reached row 8
-// 3 - Game not finished yet
+        // 1 - Player lost - no lives remaining
+        // 2 - Player won. Reached row 8
+        // 3 - Game not finished yet
         public int gameStatus(Cell movedCell)
         {
             if (noLivesRemaining()) return 1;
@@ -239,7 +242,7 @@ namespace game
         }
         public bool gameOverPlayerWins(Cell position)
         {
-            return position.j == 7;
+            return position.j == maxIndex;
         }
     }
 
