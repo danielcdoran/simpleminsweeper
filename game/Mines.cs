@@ -99,15 +99,6 @@ namespace game
             return _board[i, j];
         }
 
-
-        public bool getMineData(int i, int j)
-        {
-            if (i < 0) { return false; }
-            if (i > 7) { return false; }
-            if (j < 0) { return false; }
-            if (j > 7) { return false; }
-            return _board[i, j];
-        }
         private void setCellAsMine(Cell cell)
         {
 
@@ -139,7 +130,7 @@ namespace game
         }
 
 
-        public int NumberMines
+        public int NumberMinesHit
         {
             get { return _numberMinesHit; }
         }
