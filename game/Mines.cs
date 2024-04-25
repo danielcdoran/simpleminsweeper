@@ -93,7 +93,7 @@ namespace game
         {
             return (_maxLivesAllowed - _numberMinesHit <= 0);
         }
-        public bool isMineCell(Cell cell)
+        private bool isMineCell(Cell cell)
         {
             var i = cell.i;
             var j = cell.j;
@@ -163,13 +163,7 @@ namespace game
 
         public bool isInRange(Cell cell)
         {
-            int row = cell.i;
-            int column = cell.j;
-            if (row < 0) { return false; }
-            if (row > maxIndex) { return false; }
-            if (column < 0) { return false; }
-            if (column > maxIndex) { return false; }
-            return true;
+            return isInRange(cell.i,cell.j);
         }
         // if out of range Cell reurns (0,0) pooint as default
         public Cell getCell(int i, int j)
