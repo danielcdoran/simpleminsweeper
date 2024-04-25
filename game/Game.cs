@@ -57,6 +57,7 @@ namespace game
                 Console.WriteLine(output);
                 gameEnded = player.GameOver;
             } while (!gameEnded);
+            gameStatus(player);
         }
         public void gameStatus(Player player){
                         int status = player.gameStatus();
